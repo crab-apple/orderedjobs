@@ -18,6 +18,17 @@ describe("orderJobs", function(){
       });
     });
 
+    it("contains all the letters in the input", function(){
+      forAllValidInputs(function(input, output){
+        const letters = input.split("").filter(function(ch){
+          return isALetter(ch);
+        });
+        return letters.every(function(letter){
+          return (output.indexOf(letter) !== -1);
+        });
+      });
+    });
+
   });
 
   function forAllValidInputs(predicate){
@@ -51,6 +62,11 @@ describe("orderJobs", function(){
       "f =>"
 
     ]
+  }
+
+  function isALetter(ch){
+    return ch.charCodeAt(0) >= "a".charCodeAt(0)
+          && ch.charCodeAt(0) <= "z".charCodeAt(0);
   }
 
 });
