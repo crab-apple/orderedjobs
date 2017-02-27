@@ -29,6 +29,17 @@ describe("orderJobs", function(){
       });
     });
 
+    it("contains only the letters in the input", function(){
+      forAllValidInputs(function(input, output){
+        const letters = input.split("").filter(function(ch){
+          return isALetter(ch);
+        });
+        return output.split("").every(function(ch){
+          return (letters.indexOf(ch) !== -1);
+        });
+      });
+    });
+
   });
 
   function forAllValidInputs(predicate){
