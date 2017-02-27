@@ -40,6 +40,19 @@ describe("orderJobs", function(){
       });
     });
 
+    it("contains each letter only once", function(){
+      forAllValidInputs(function(input, output){
+        const counts = {};
+        output.split("").forEach(function(ch){
+          counts[ch] = counts[ch] || 0;
+          counts[ch]++;
+        });
+        return Object.getOwnPropertyNames(counts).every(function(key){
+          return counts[key] === 1;
+        });
+      });
+    });
+
   });
 
   function forAllValidInputs(predicate){
