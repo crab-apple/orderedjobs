@@ -53,6 +53,23 @@ describe("orderJobs", function(){
       });
     });
 
+    it("contains jobs in order", function(){
+      forAllValidInputs(function(input, output){
+        const jobPairs = input.split("\n")
+        .map(function(line){
+          return line.replace(/[^a-z]/g, "");
+        }).filter(function(letters){
+          return (letters.length === 2);
+        });
+
+        return jobPairs.every(function(pair){
+          const dependant = pair[0];
+          const dependency = pair[1];
+          return isBefore(output, dependency, dependant);
+        });
+      });
+    });
+
   });
 
   function forAllValidInputs(predicate){
@@ -91,6 +108,14 @@ describe("orderJobs", function(){
   function isALetter(ch){
     return ch.charCodeAt(0) >= "a".charCodeAt(0)
           && ch.charCodeAt(0) <= "z".charCodeAt(0);
+  }
+
+  function isBefore(str, a, b){
+    const indexOfA = str.indexOf(a);
+    const indexOfB = str.indexOf(b);
+    return (indexOfA >= 0) 
+            && (indexOfB >= 0)
+            && (indexOfA < indexOfB);
   }
 
 });
